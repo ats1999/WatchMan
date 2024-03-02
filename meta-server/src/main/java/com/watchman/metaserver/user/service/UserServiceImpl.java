@@ -36,8 +36,11 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public boolean isAdmin(String userName, String password) {
-    Optional<User> fetchedUser = userRepository.findById(userName);
-    return fetchedUser.isPresent() && fetchedUser.get().getPassword().equals(password);
+    // TODO: move WatchMan to constant
+    Optional<User> fetchedUser = userRepository.findById("WatchMan");
+    return fetchedUser.isPresent()
+        && fetchedUser.get().getUserName().equals(userName)
+        && fetchedUser.get().getPassword().equals(password);
   }
 
   @Override

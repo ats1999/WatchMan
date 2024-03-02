@@ -10,11 +10,11 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
- @ControllerAdvice
+@ControllerAdvice
 public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler {
   @ExceptionHandler(ResponseStatusException.class)
-  public String handleResponseStatusException(ResponseStatusException ex) {
-    return ex.getReason();
+  public ResponseEntity<String> handleResponseStatusException(ResponseStatusException ex) {
+    return ResponseEntity.badRequest().body(ex.getReason());
   }
 
   @Override
@@ -23,6 +23,6 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
       HttpHeaders headers,
       HttpStatusCode status,
       WebRequest request) {
-      return ResponseEntity.badRequest().body(ex.getDetailMessageArguments());
+    return ResponseEntity.badRequest().body(ex.getDetailMessageArguments());
   }
 }
