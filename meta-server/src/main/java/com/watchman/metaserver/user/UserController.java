@@ -21,15 +21,15 @@ public class UserController {
       @Valid @RequestBody User user,
       @NotBlank @RequestHeader String userName,
       @NotBlank @RequestHeader String password) {
-    userService.createUser(user, userName, password);
+    userService.upsertUser(user, userName, password);
     return user.getUserName();
   }
 
   @PostMapping("/update-password")
   public String updatePassword(
       @Valid @RequestBody UpdatePasswordDTO updatePasswordDTO,
-      @NotBlank @RequestHeader String userName,
-      @NotBlank @RequestHeader String password) {
-    return "";
+      @NotBlank @RequestHeader String userName) {
+    userService.changePassword(userName, updatePasswordDTO.newPassword());
+    return "Password Updated!";
   }
 }

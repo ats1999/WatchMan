@@ -17,12 +17,20 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void createUser(User user, @NotBlank String userName, @NotBlank String password) {
+  public void upsertUser(User user, @NotBlank String userName, @NotBlank String password) {
     if (!isAdmin(userName, password)) {
       throw new ResponseStatusException(
           HttpStatus.UNAUTHORIZED, "You don't have permission to create users!");
     }
 
+    userRepository.save(user);
+  }
+
+  @Override
+  public void changePassword(String userName, String newPassword) {
+    User user = new User();
+    user.setUserName(userName);
+    user.setPassword(newPassword);
     userRepository.save(user);
   }
 
