@@ -7,6 +7,7 @@ import java.util.Optional;
 
 public interface UserService {
   void upsertUser(User user, @NotBlank String userName, @NotBlank String password);
+  User save(User user);
   void changePassword(String userName, String newPassword);
   boolean isAdmin(String userName, String password);
   Optional<User> findById(String userName);

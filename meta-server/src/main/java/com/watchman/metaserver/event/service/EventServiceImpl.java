@@ -1,10 +1,12 @@
 package com.watchman.metaserver.event.service;
 
+import com.watchman.metaserver.apikey.ApiKeyGenerator;
+import com.watchman.metaserver.event.model.ApiKey;
 import com.watchman.metaserver.event.model.Dimension;
 import com.watchman.metaserver.event.model.DimensionType;
 import com.watchman.metaserver.event.model.Event;
 import com.watchman.metaserver.user.model.User;
-import com.watchman.metaserver.user.repository.UserRepository;
+import com.watchman.metaserver.user.service.UserService;
 import java.util.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -12,10 +14,12 @@ import org.springframework.web.server.ResponseStatusException;
 
 @Service
 public class EventServiceImpl implements EventService {
-  UserRepository userRepository;
+  UserService userService;
+  ApiKeyGenerator apiKeyGenerator;
 
-  EventServiceImpl(UserRepository userRepository) {
-    this.userRepository = userRepository;
+  EventServiceImpl(UserService userService, ApiKeyGenerator apiKeyGenerator) {
+    this.userService = userService;
+    this.apiKeyGenerator = apiKeyGenerator;
   }
 
   @Override
@@ -24,16 +28,44 @@ public class EventServiceImpl implements EventService {
     // TODO: make sure to follow SOLID
     createDimensionsIndex(event);
 
-    Optional<User> userOptional = userRepository.findById(userName);
+    Optional<User> userOptional = userService.findById(userName);
     if (userOptional.isEmpty()) {
       throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "User does not found!");
     }
 
     User user = userOptional.get();
     user.getEvents().add(event);
-    userRepository.save(user);
+    userService.save(user);
 
     return user.getEvents().get(user.getEvents().size() - 1);
+  }
+
+  @Override
+  public String generateApiKey(String userName, long eventId, long expiryTime) {
+    Optional<User> userOptional = userService.findById(userName);
+    if (userOptional.isEmpty()) {
+      throw new ResponseStatusException(HttpStatus.UNPROCESSABLE_ENTITY, "User does not found!");
+    }
+
+    User user = userOptional.get();
+    var events = user.getEvents();
+    for (Event event : events) {
+      if (event.getEventId() != eventId) {
+        continue;
+      }
+
+      // TODO: implement robust api key generator
+      String key = apiKeyGenerator.generateApiKey();
+
+      ApiKey apiKey = new ApiKey();
+      apiKey.setApiKey(key);
+      apiKey.setExpiryTime(expiryTime);
+
+      event.getApiKeys().add(apiKey);
+      userService.save(user);
+      return key;
+    }
+    throw new ResponseStatusException(HttpStatus.NOT_FOUND, "User or Specified event not found!");
   }
 
   // TODO: refactor this method by using lambda and design patterns

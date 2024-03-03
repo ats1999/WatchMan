@@ -20,4 +20,7 @@ public class Event {
   @OneToMany(targetEntity = Dimension.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @NotEmpty
   private List<Dimension> dimensions;
+
+  @OneToMany(targetEntity = ApiKey.class, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  private List<ApiKey> apiKeys;
 }

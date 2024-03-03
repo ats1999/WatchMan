@@ -1,5 +1,6 @@
 package com.watchman.metaserver.event;
 
+import com.watchman.metaserver.event.dto.GenerateApiKeyDTO;
 import com.watchman.metaserver.event.model.Event;
 import com.watchman.metaserver.event.service.EventService;
 import jakarta.validation.Valid;
@@ -16,7 +17,16 @@ public class EventController {
   }
 
   @PostMapping
-  public Event createEvent(@Valid @RequestBody Event event, @NotBlank @RequestHeader String userName) {
-    return eventService.createEvent(event,userName);
+  public Event createEvent(
+      @Valid @RequestBody Event event, @NotBlank @RequestHeader String userName) {
+    return eventService.createEvent(event, userName);
+  }
+
+  @PostMapping("/generate-api-key")
+  public String generateApiKey(
+      @Valid @RequestBody GenerateApiKeyDTO generateApiKeyDTO,
+      @NotBlank @RequestHeader String userName) {
+    return eventService.generateApiKey(
+        userName, generateApiKeyDTO.getEventId(), generateApiKeyDTO.getExpiryTime());
   }
 }
