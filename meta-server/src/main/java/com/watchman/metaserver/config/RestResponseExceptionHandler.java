@@ -3,6 +3,7 @@ package com.watchman.metaserver.config;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
@@ -24,5 +25,23 @@ public class RestResponseExceptionHandler extends ResponseEntityExceptionHandler
       HttpStatusCode status,
       WebRequest request) {
     return ResponseEntity.badRequest().body(ex.getDetailMessageArguments());
+  }
+
+  @Override
+  protected ResponseEntity<Object> handleMethodArgumentNotValid(
+      MethodArgumentNotValidException ex,
+      HttpHeaders headers,
+      HttpStatusCode status,
+      WebRequest request) {
+
+    String message;
+    var fieldError = ex.getFieldError();
+    if (fieldError != null) {
+      message = ex.getFieldError().getField() + " " + ex.getFieldError().getDefaultMessage();
+    } else {
+      message = ex.getMessage();
+    }
+
+    return ResponseEntity.badRequest().body(message);
   }
 }

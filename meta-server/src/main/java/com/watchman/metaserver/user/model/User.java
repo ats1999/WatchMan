@@ -1,9 +1,9 @@
 package com.watchman.metaserver.user.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import com.watchman.metaserver.event.model.Event;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import java.util.List;
 import lombok.Data;
 
 @Data
@@ -15,4 +15,7 @@ public class User {
   @Column(nullable = false)
   @NotBlank
   private String password;
+
+  @OneToMany(fetch = FetchType.LAZY, targetEntity = Event.class, cascade = CascadeType.ALL)
+  List<Event> events;
 }
