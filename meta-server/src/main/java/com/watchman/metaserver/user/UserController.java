@@ -1,6 +1,6 @@
 package com.watchman.metaserver.user;
 
-import com.watchman.metaserver.user.model.UpdatePasswordDTO;
+import com.watchman.metaserver.user.dto.UpdatePasswordDTO;
 import com.watchman.metaserver.user.model.User;
 import com.watchman.metaserver.user.service.UserService;
 import jakarta.validation.Valid;

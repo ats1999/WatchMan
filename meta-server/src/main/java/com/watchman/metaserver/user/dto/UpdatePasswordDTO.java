@@ -1,4 +1,4 @@
-package com.watchman.metaserver.user.model;
+package com.watchman.metaserver.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
