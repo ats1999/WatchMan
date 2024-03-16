@@ -2,6 +2,14 @@
 
 An query and alerting engine...!
 
+Kafka Installation
+https://github.com/apache/kafka/blob/trunk/docker/examples/README.md
+
+```sh
+docker pull apache/kafka:latest
+docker run -p 9092:9092 apache/kafka
+```
+
 MySql Docker
 
 ```sh
@@ -14,3 +22,18 @@ Create Meta Data Base
 ```sql
 CREATE DATABASE meta
 ```
+
+Api key mapping
+
+```sql
+SELECT user_events.user_user_name AS user_name,
+       event_api_keys.event_event_id AS event_id,
+       api_key.api_key,
+       api_key.expiry_time
+FROM api_key
+JOIN event_api_keys ON api_key.id = event_api_keys.api_keys_id
+JOIN user_events ON user_events.events_event_id = event_api_keys.event_event_id
+HAVING api_key='af4f8d3f8dfa481d9dc0161ddbe0af24';
+```
+
+Send Log => Pulish to kafka for validation => store data into clickhouse once validated => query data

@@ -1,0 +1,58 @@
+[
+    {
+        "type": "record",
+        "name": "AvroEvent",
+        "namespace": "com.watchman.avro.schema",
+        "fields": [
+            {
+                "name": "eventId",
+                "type": "string"
+            },
+            {
+                "name": "userName",
+                "type": "string"
+            },
+            {
+                "name": "timeStamp",
+                "type": "long"
+            },
+            {
+                "name": "country",
+                "type": "string"
+            },
+            {
+                "name": "browser",
+                "type": "string"
+            },
+            {
+                "name": "device",
+                "type": "string"
+            },
+            {
+                "name": "payload",
+                "type": {
+                    "type": "map",
+                    "values": [
+                        "string",
+                        "long"
+                    ]
+                }
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "AvroKafkaEventMessage",
+        "namespace": "com.watchman.avro.schema",
+        "fields": [
+            {
+                "name": "apiKey",
+                "type": "string"
+            },
+            {
+                "name": "event",
+                "type": "com.watchman.avro.schema.AvroEvent"
+            }
+        ]
+    }
+]
