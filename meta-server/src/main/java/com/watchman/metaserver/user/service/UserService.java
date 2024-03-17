@@ -3,6 +3,7 @@ package com.watchman.metaserver.user.service;
 import com.watchman.metaserver.user.model.User;
 import jakarta.validation.constraints.NotBlank;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UserService {
@@ -11,4 +12,5 @@ public interface UserService {
   void changePassword(String userName, String newPassword);
   boolean isAdmin(String userName, String password);
   Optional<User> findById(String userName);
+  List<Object> fetchApiKeyMeta(String apiKey);
 }

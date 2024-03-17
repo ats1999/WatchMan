@@ -3,6 +3,8 @@ package com.watchman.metaserver.user.service;
 import com.watchman.metaserver.user.model.User;
 import com.watchman.metaserver.user.repository.UserRepository;
 import jakarta.validation.constraints.NotBlank;
+
+import java.util.List;
 import java.util.Optional;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -52,4 +54,9 @@ public class UserServiceImpl implements UserService {
   public Optional<User> findById(String userName) {
     return userRepository.findById(userName);
   }
+
+    @Override
+    public List<Object> fetchApiKeyMeta(String apiKey) {
+        return userRepository.fetchApiKeyMeta(apiKey);
+    }
 }
