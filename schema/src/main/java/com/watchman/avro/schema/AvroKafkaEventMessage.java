@@ -14,8 +14,8 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class AvroKafkaEventMessage extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -7289319201894086349L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"AvroKafkaEventMessage\",\"namespace\":\"com.watchman.avro.schema\",\"fields\":[{\"name\":\"apiKey\",\"type\":\"string\"},{\"name\":\"event\",\"type\":{\"type\":\"record\",\"name\":\"AvroEvent\",\"fields\":[{\"name\":\"eventId\",\"type\":\"string\"},{\"name\":\"userName\",\"type\":\"string\"},{\"name\":\"timeStamp\",\"type\":\"long\"},{\"name\":\"country\",\"type\":\"string\"},{\"name\":\"browser\",\"type\":\"string\"},{\"name\":\"device\",\"type\":\"string\"},{\"name\":\"payload\",\"type\":{\"type\":\"map\",\"values\":[\"string\",\"long\"]}}]}}]}");
+  private static final long serialVersionUID = 7069279053076544930L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"AvroKafkaEventMessage\",\"namespace\":\"com.watchman.avro.schema\",\"fields\":[{\"name\":\"apiKey\",\"type\":\"string\"},{\"name\":\"event\",\"type\":{\"type\":\"record\",\"name\":\"AvroEvent\",\"fields\":[{\"name\":\"eventId\",\"type\":\"long\"},{\"name\":\"userName\",\"type\":\"string\"},{\"name\":\"timeStamp\",\"type\":\"long\"},{\"name\":\"country\",\"type\":\"string\"},{\"name\":\"browser\",\"type\":\"string\"},{\"name\":\"device\",\"type\":\"string\"},{\"name\":\"payload\",\"type\":{\"type\":\"map\",\"values\":[\"string\",\"long\"]}}]}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();

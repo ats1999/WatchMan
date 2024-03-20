@@ -14,8 +14,8 @@ import org.apache.avro.message.SchemaStore;
 
 @org.apache.avro.specific.AvroGenerated
 public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  private static final long serialVersionUID = -2637853096627306594L;
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"AvroEvent\",\"namespace\":\"com.watchman.avro.schema\",\"fields\":[{\"name\":\"eventId\",\"type\":\"string\"},{\"name\":\"userName\",\"type\":\"string\"},{\"name\":\"timeStamp\",\"type\":\"long\"},{\"name\":\"country\",\"type\":\"string\"},{\"name\":\"browser\",\"type\":\"string\"},{\"name\":\"device\",\"type\":\"string\"},{\"name\":\"payload\",\"type\":{\"type\":\"map\",\"values\":[\"string\",\"long\"]}}]}");
+  private static final long serialVersionUID = 8981245197740387263L;
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"AvroEvent\",\"namespace\":\"com.watchman.avro.schema\",\"fields\":[{\"name\":\"eventId\",\"type\":\"long\"},{\"name\":\"userName\",\"type\":\"string\"},{\"name\":\"timeStamp\",\"type\":\"long\"},{\"name\":\"country\",\"type\":\"string\"},{\"name\":\"browser\",\"type\":\"string\"},{\"name\":\"device\",\"type\":\"string\"},{\"name\":\"payload\",\"type\":{\"type\":\"map\",\"values\":[\"string\",\"long\"]}}]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
 
   private static SpecificData MODEL$ = new SpecificData();
@@ -71,7 +71,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
     return DECODER.decode(b);
   }
 
-   private java.lang.CharSequence eventId;
+   private long eventId;
    private java.lang.CharSequence userName;
    private long timeStamp;
    private java.lang.CharSequence country;
@@ -96,7 +96,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
    * @param device The new value for device
    * @param payload The new value for payload
    */
-  public AvroEvent(java.lang.CharSequence eventId, java.lang.CharSequence userName, java.lang.Long timeStamp, java.lang.CharSequence country, java.lang.CharSequence browser, java.lang.CharSequence device, java.util.Map<java.lang.CharSequence,java.lang.Object> payload) {
+  public AvroEvent(java.lang.Long eventId, java.lang.CharSequence userName, java.lang.Long timeStamp, java.lang.CharSequence country, java.lang.CharSequence browser, java.lang.CharSequence device, java.util.Map<java.lang.CharSequence,java.lang.Object> payload) {
     this.eventId = eventId;
     this.userName = userName;
     this.timeStamp = timeStamp;
@@ -126,7 +126,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
   @SuppressWarnings(value="unchecked")
   public void put(int field$, java.lang.Object value$) {
     switch (field$) {
-    case 0: eventId = (java.lang.CharSequence)value$; break;
+    case 0: eventId = (java.lang.Long)value$; break;
     case 1: userName = (java.lang.CharSequence)value$; break;
     case 2: timeStamp = (java.lang.Long)value$; break;
     case 3: country = (java.lang.CharSequence)value$; break;
@@ -141,7 +141,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
    * Gets the value of the 'eventId' field.
    * @return The value of the 'eventId' field.
    */
-  public java.lang.CharSequence getEventId() {
+  public long getEventId() {
     return eventId;
   }
 
@@ -150,7 +150,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
    * Sets the value of the 'eventId' field.
    * @param value the value to set.
    */
-  public void setEventId(java.lang.CharSequence value) {
+  public void setEventId(long value) {
     this.eventId = value;
   }
 
@@ -297,7 +297,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
   public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<AvroEvent>
     implements org.apache.avro.data.RecordBuilder<AvroEvent> {
 
-    private java.lang.CharSequence eventId;
+    private long eventId;
     private java.lang.CharSequence userName;
     private long timeStamp;
     private java.lang.CharSequence country;
@@ -386,7 +386,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
       * Gets the value of the 'eventId' field.
       * @return The value.
       */
-    public java.lang.CharSequence getEventId() {
+    public long getEventId() {
       return eventId;
     }
 
@@ -396,7 +396,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
       * @param value The value of 'eventId'.
       * @return This builder.
       */
-    public com.watchman.avro.schema.AvroEvent.Builder setEventId(java.lang.CharSequence value) {
+    public com.watchman.avro.schema.AvroEvent.Builder setEventId(long value) {
       validate(fields()[0], value);
       this.eventId = value;
       fieldSetFlags()[0] = true;
@@ -417,7 +417,6 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
       * @return This builder.
       */
     public com.watchman.avro.schema.AvroEvent.Builder clearEventId() {
-      eventId = null;
       fieldSetFlags()[0] = false;
       return this;
     }
@@ -666,7 +665,7 @@ public class AvroEvent extends org.apache.avro.specific.SpecificRecordBase imple
     public AvroEvent build() {
       try {
         AvroEvent record = new AvroEvent();
-        record.eventId = fieldSetFlags()[0] ? this.eventId : (java.lang.CharSequence) defaultValue(fields()[0]);
+        record.eventId = fieldSetFlags()[0] ? this.eventId : (java.lang.Long) defaultValue(fields()[0]);
         record.userName = fieldSetFlags()[1] ? this.userName : (java.lang.CharSequence) defaultValue(fields()[1]);
         record.timeStamp = fieldSetFlags()[2] ? this.timeStamp : (java.lang.Long) defaultValue(fields()[2]);
         record.country = fieldSetFlags()[3] ? this.country : (java.lang.CharSequence) defaultValue(fields()[3]);

@@ -7,7 +7,7 @@ import lombok.Data;
 
 @Data
 public class Event {
-  @NotBlank private String eventId;
+  private Long eventId;
   @NotBlank private String userName;
   private long timeStamp;
   @NotBlank private String country;

@@ -6,7 +6,7 @@
         "fields": [
             {
                 "name": "eventId",
-                "type": "string"
+                "type": "long"
             },
             {
                 "name": "userName",
@@ -47,6 +47,21 @@
         "fields": [
             {
                 "name": "apiKey",
+                "type": "string"
+            },
+            {
+                "name": "event",
+                "type": "com.watchman.avro.schema.AvroEvent"
+            }
+        ]
+    },
+    {
+        "type": "record",
+        "name": "AvroKafkaDbSyncMessage",
+        "namespace": "com.watchman.avro.schema",
+        "fields": [
+            {
+                "name": "userName",
                 "type": "string"
             },
             {
