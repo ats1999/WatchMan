@@ -1,11 +1,10 @@
 package com.watchman.etl.dbsync;
 
+import com.watchman.avro.schema.AvroKafkaDbSyncMessage;
 import com.watchman.avro.schema.AvroKafkaEventMessage;
-import com.watchman.etl.executor.TaskExecutor;
 import com.watchman.etl.worker.WorkerConfiguration;
 import java.io.IOException;
 import java.util.Properties;
-import java.util.concurrent.Future;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -20,8 +19,7 @@ public class DbSyncProducer
   private Producer<String, byte[]> kafkaProducer;
   private static volatile DbSyncProducer dbSyncProducer;
 
-  public DbSyncProducer(
-      WorkerConfiguration workerConfiguration) {
+  public DbSyncProducer(WorkerConfiguration workerConfiguration) {
     System.out.println("DbSyncProducer started...");
     this.workerConfiguration = workerConfiguration;
   }
@@ -37,9 +35,14 @@ public class DbSyncProducer
   @Override
   public void publish(AvroKafkaEventMessage avroKafkaEventMessage, JSONObject apiKeyMetaData)
       throws IOException {
+    AvroKafkaDbSyncMessage avroKafkaDbSyncMessage = new AvroKafkaDbSyncMessage();
+    avroKafkaDbSyncMessage.setEvent(avroKafkaEventMessage.getEvent());
+    avroKafkaDbSyncMessage.setUserName(apiKeyMetaData.getString("userName"));
+
     String topicName = workerConfiguration.getTopic();
-    byte[] message = avroKafkaEventMessage.toByteBuffer().array();
+    byte[] message = avroKafkaDbSyncMessage.toByteBuffer().array();
     ProducerRecord<String, byte[]> record = new ProducerRecord<>(topicName, message);
+
     kafkaProducer.send(record);
   }
 
