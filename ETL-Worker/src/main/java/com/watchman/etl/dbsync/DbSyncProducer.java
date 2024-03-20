@@ -17,15 +17,13 @@ import org.json.JSONObject;
 public class DbSyncProducer
     implements com.watchman.etl.worker.Producer<AvroKafkaEventMessage, JSONObject>, Runnable {
   private final WorkerConfiguration workerConfiguration;
-  private final TaskExecutor<Runnable, Future<?>> taskExecutor;
   private Producer<String, byte[]> kafkaProducer;
   private static volatile DbSyncProducer dbSyncProducer;
 
   public DbSyncProducer(
-      WorkerConfiguration workerConfiguration, TaskExecutor<Runnable, Future<?>> taskExecutor) {
+      WorkerConfiguration workerConfiguration) {
     System.out.println("DbSyncProducer started...");
     this.workerConfiguration = workerConfiguration;
-    this.taskExecutor = taskExecutor;
   }
 
   private Properties getConsumerProperties() {
@@ -52,11 +50,11 @@ public class DbSyncProducer
   }
 
   public static com.watchman.etl.worker.Producer<AvroKafkaEventMessage, JSONObject> from(
-      WorkerConfiguration workerConfiguration, TaskExecutor<Runnable, Future<?>> taskExecutor) {
+      WorkerConfiguration workerConfiguration) {
     if (dbSyncProducer == null) {
       synchronized (DbSyncProducer.class) {
         if (dbSyncProducer == null) {
-          dbSyncProducer = new DbSyncProducer(workerConfiguration, taskExecutor);
+          dbSyncProducer = new DbSyncProducer(workerConfiguration);
         }
       }
     }

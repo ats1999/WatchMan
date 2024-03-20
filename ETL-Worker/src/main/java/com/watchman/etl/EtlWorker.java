@@ -21,7 +21,7 @@ public class EtlWorker {
     WorkerConfiguration dbSyncWorkerConfiguration =
         DbSyncProducerConfiguration.from(AppConfiguration.getInstance());
     Producer<AvroKafkaEventMessage, JSONObject> dbSyncProducer =
-        DbSyncProducer.from(dbSyncWorkerConfiguration, threadWorker);
+        DbSyncProducer.from(dbSyncWorkerConfiguration);
 
     // event validation consumer
     WorkerConfiguration eventValidationConsumerConfiguration =
