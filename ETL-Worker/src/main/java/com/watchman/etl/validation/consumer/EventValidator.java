@@ -58,7 +58,7 @@ public class EventValidator implements Runnable {
         dbSyncProducer.publish(kafkaEventMessage, (JSONObject) apiKeyMeta.get());
       } else {
         // TODO: if event is not valid then produce it into invalid_events
-        System.out.println("Event is not valid");
+        System.out.println("Event is not valid....");
       }
     } catch (IOException e) {
       e.printStackTrace();
